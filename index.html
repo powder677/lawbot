@@ -444,6 +444,21 @@
       .stripe-btn:hover {
          transform: translateY(-1px);
       }
+
+      /* Fix the form content area height calculation */
+      #form-content-area {
+         flex-grow: 1;
+         overflow-y: auto;
+         padding-right: 1rem;
+         /* Add some padding for the scrollbar */
+      }
+
+      /* Ensure the form itself doesn't try to scroll */
+      #builderForm {
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+      }
    </style>
 </head>
 
@@ -537,9 +552,10 @@
                   </div>
                </div>
 
-               <!-- This div will contain all stages and will be the SCROLLABLE part -->
-               <div id="form-content-area" class="flex-grow overflow-y-auto px-8">
-                  <form id="builderForm" method="POST" novalidate>
+
+               <form id="builderForm" method="POST" novalidate class="flex flex-col flex-grow h-full overflow-hidden">
+                  <!-- This div will contain all stages and will be the SCROLLABLE part -->
+                  <div id="form-content-area" class="flex-grow overflow-y-auto px-8">
                      <!-- Stage 1: Let's Get Started -->
                      <div id="stage-1" class="form-stage active">
                         <div class="question-group">

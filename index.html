@@ -26,6 +26,8 @@
          color: var(--charcoal-text);
          scroll-behavior: smooth;
          height: 100%;
+         overflow: hidden;
+         /* Prevent body scroll */
       }
 
       h1,
@@ -504,49 +506,54 @@
       </div>
 
       <!-- Right: Bot Builder Wizard -->
-      <div class="w-full md:w-1/2 bg-white p-8 overflow-auto" id="builder-panel">
-         <div class="max-w-2xl mx-auto">
-            <div id="botBuilderWrapper">
-               <div id="botBuilderQuestionnaire">
-                  <h2 class="text-3xl font-bold mb-2" style="color: var(--navy-dark);">Build Your Custom Law Firm Chatbot</h2>
-                  <p class="text-gray-600 mb-4">Complete this questionnaire to receive a detailed proposal and quote.</p>
+      <div class="w-full md:w-1/2 bg-white flex flex-col p-8" id="builder-panel">
+         <div class="max-w-2xl mx-auto w-full flex flex-col h-full">
+            <div id="botBuilderWrapper" class="flex flex-col h-full">
+               <!-- This container now manages the form layout -->
+               <div id="botBuilderQuestionnaire" class="flex flex-col h-full">
+                  <div class="flex-shrink-0">
+                     <h2 class="text-3xl font-bold mb-2" style="color: var(--navy-dark);">Build Your Custom Law Firm Chatbot</h2>
+                     <p class="text-gray-600 mb-4">Complete this questionnaire to receive a detailed proposal and quote.</p>
 
-                  <!-- Progress Bar -->
-                  <div id="progress-container" class="mb-8">
-                     <div class="relative pt-1">
-                        <div class="flex mb-2 items-center justify-between">
-                           <div>
-                              <span id="progress-text" class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full" style="color: var(--navy-dark); background-color: var(--light-gray);">
-                                 Step 1 of 6
-                              </span>
+                     <!-- Progress Bar -->
+                     <div id="progress-container" class="mb-8">
+                        <div class="relative pt-1">
+                           <div class="flex mb-2 items-center justify-between">
+                              <div>
+                                 <span id="progress-text" class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full" style="color: var(--navy-dark); background-color: var(--light-gray);">
+                                    Step 1 of 6
+                                 </span>
+                              </div>
                            </div>
-                        </div>
-                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded" style="background-color: var(--light-gray);">
-                           <div id="progress-bar" style="width: 0%; background-color: var(--gold-accent);" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500"></div>
+                           <div class="overflow-hidden h-2 mb-4 text-xs flex rounded" style="background-color: var(--light-gray);">
+                              <div id="progress-bar" style="width: 0%; background-color: var(--gold-accent);" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500"></div>
+                           </div>
                         </div>
                      </div>
                   </div>
 
+                  <!-- Form now has a scrollable content area and a fixed footer -->
+                  <form id="builderForm" method="POST" novalidate class="flex flex-col flex-grow h-full overflow-hidden">
 
-                  <form id="builderForm" method="POST" novalidate>
-
-                     <!-- Stage 1: Let's Get Started -->
-                     <div id="stage-1" class="form-stage active">
-                        <div class="question-group">
-                           <h3>Stage 1: Contact & Service Area</h3>
-                           <div class="space-y-4">
-                              <div><label class="question-label" for="firm_name">1. What is the Name of your Law Firm?</label><input type="text" id="firm_name" name="firm_name" class="builder-input" required></div>
-                              <div><label class="question-label" for="full_name">2. Full Name</label><input type="text" id="full_name" name="full_name" class="builder-input" required></div>
-                              <div><label class="question-label" for="email">3. Email</label><input type="email" id="email" name="email" class="builder-input" required></div>
-                              <div><label class="question-label" for="phone">4. Phone Number</label><input type="tel" id="phone" name="phone" class="builder-input" required></div>
-                              <div><label class="question-label" for="zip_code">5. What is your primary service zip code?</label><input type="text" id="zip_code" name="zip_code" class="builder-input" placeholder="e.g., 90210"></div>
-                              <div>
-                                 <label class="question-label">6. ...and what is your service area?</label>
-                                 <div class="space-y-2">
-                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_10"><span class="radio-label">10 mile radius</span></label>
-                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_25"><span class="radio-label">25 mile radius</span></label>
-                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_50"><span class="radio-label">50 mile radius</span></label>
-                                    <label class="radio-option"><input type="radio" name="service_area_type" value="counties"><span class="radio-label">I'll list specific counties below</span></label>
-                                 </div>
-                                 <div id="counties-group" class="hidden sub-group">
-                                    <textarea name="service_area_counties" class="builder-textarea" placeholder="e.g., Los Angeles County, Orange County">
+                     <!-- This div will contain all stages and will be the scrollable part -->
+                     <div class="flex-grow overflow-y-auto pr-4">
+                        <!-- Stage 1: Let's Get Started -->
+                        <div id="stage-1" class="form-stage active">
+                           <div class="question-group">
+                              <h3>Stage 1: Contact & Service Area</h3>
+                              <div class="space-y-4">
+                                 <div><label class="question-label" for="firm_name">1. What is the Name of your Law Firm?</label><input type="text" id="firm_name" name="firm_name" class="builder-input" required></div>
+                                 <div><label class="question-label" for="full_name">2. Full Name</label><input type="text" id="full_name" name="full_name" class="builder-input" required></div>
+                                 <div><label class="question-label" for="email">3. Email</label><input type="email" id="email" name="email" class="builder-input" required></div>
+                                 <div><label class="question-label" for="phone">4. Phone Number</label><input type="tel" id="phone" name="phone" class="builder-input" required></div>
+                                 <div><label class="question-label" for="zip_code">5. What is your primary service zip code?</label><input type="text" id="zip_code" name="zip_code" class="builder-input" placeholder="e.g., 90210"></div>
+                                 <div>
+                                    <label class="question-label">6. ...and what is your service area?</label>
+                                    <div class="space-y-2">
+                                       <label class="radio-option"><input type="radio" name="service_area_type" value="radius_10"><span class="radio-label">10 mile radius</span></label>
+                                       <label class="radio-option"><input type="radio" name="service_area_type" value="radius_25"><span class="radio-label">25 mile radius</span></label>
+                                       <label class="radio-option"><input type="radio" name="service_area_type" value="radius_50"><span class="radio-label">50 mile radius</span></label>
+                                       <label class="radio-option"><input type="radio" name="service_area_type" value="counties"><span class="radio-label">I'll list specific counties below</span></label>
+                                    </div>
+                                    <div id="counties-group" class="hidden sub-group">
+                                       <textarea name="service_area_counties" class="builder-textarea" placeholder="e.g., Los Angeles County, Orange County">

@@ -4,8 +4,8 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Custom Chatbot Builder | ConciergeNP Chatbots</title>
-   <meta name="description" content="Build a custom AI-powered professional chatbot for your website. Increase leads, qualify prospects, and save time.">
+   <title>Custom Chatbot Builder | Concierge Legal Chatbots</title>
+   <meta name="description" content="Build a custom AI-powered professional chatbot for your law firm's website. Increase leads, qualify prospects, and save time.">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
@@ -37,85 +37,67 @@
          font-family: 'Playfair Display', serif;
       }
 
-      .chat-messages::-webkit-scrollbar {
-         width: 6px;
-      }
-
-      .chat-messages::-webkit-scrollbar-track {
-         background: #f1f1f1;
-      }
-
-      .chat-messages::-webkit-scrollbar-thumb {
-         background: #ccc;
-         border-radius: 3px;
-      }
-
-      .chat-messages::-webkit-scrollbar-thumb:hover {
-         background: #aaa;
-      }
-
-      .typing-dot {
-         animation: typing-blink 1.4s infinite both;
-      }
-
-      .typing-dot:nth-child(2) {
-         animation-delay: 0.2s;
-      }
-
-      .typing-dot:nth-child(3) {
-         animation-delay: 0.4s;
-      }
-
-      @keyframes typing-blink {
-         0% {
-            opacity: 0.2;
-         }
-
-         20% {
-            opacity: 1;
-         }
-
-         100% {
-            opacity: 0.2;
-         }
-      }
-
-      /* --- New Questionnaire Styles --- */
       .question-group {
          margin-bottom: 2.5rem;
          border-left: 3px solid var(--gold-accent);
          padding-left: 1.5rem;
+         animation: fadeIn 0.5s ease-in-out;
       }
 
-      .question-group h3 {
-         font-family: 'Playfair Display', serif;
-         font-size: 1.5rem;
-         color: var(--navy-dark);
-         margin-bottom: 1rem;
-      }
+      @keyframes fadeIn {
+         from {
+            opacity: 0;
+            transform: translateY(10px);
+         }
 
-      .question-label {
-         display: block;
-         font-weight: 600;
-         color: var(--charcoal-text);
-         margin-bottom: 0.5rem;
+         to {
+            opacity: 1;
+            transform: translateY(0);
+         }
       }
 
       .builder-input,
-      .builder-textarea {
+      .builder-textarea,
+      .builder-select {
          width: 100%;
          padding: 0.75rem;
          border: 1px solid #ccc;
          border-radius: 0.375rem;
          transition: border-color 0.2s, box-shadow 0.2s;
+         background-color: #fff;
+      }
+
+      .builder-select {
+         -webkit-appearance: none;
+         -moz-appearance: none;
+         appearance: none;
+         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+         background-position: right 0.5rem center;
+         background-repeat: no-repeat;
+         background-size: 1.5em 1.5em;
+         padding-right: 2.5rem;
       }
 
       .builder-input:focus,
-      .builder-textarea:focus {
+      .builder-textarea:focus,
+      .builder-select:focus {
          outline: none;
          border-color: var(--gold-accent);
          box-shadow: 0 0 0 2px rgba(161, 136, 92, 0.3);
       }
+
+      .builder-input.invalid,
+      .builder-textarea.invalid {
+         border-color: #ef4444;
+         /* red-500 */
+      }
+
+      .validation-error {
+         color: #ef4444;
+         font-size: 0.875rem;
+         margin-top: 0.25rem;
+      }
+
 
       .radio-option,
       .checkbox-option {
@@ -178,79 +160,345 @@
          background-position: center;
          background-size: 100% 100%;
       }
+
+      .form-stage {
+         display: none;
+      }
+
+      .form-stage.active {
+         display: block;
+      }
+
+      .micro-copy {
+         background-color: #eef2ff;
+         /* indigo-50 */
+         color: #4338ca;
+         /* indigo-800 */
+         border-left: 4px solid #6366f1;
+         /* indigo-500 */
+         padding: 1rem;
+         margin-bottom: 1.5rem;
+         border-radius: 0.375rem;
+         font-style: italic;
+      }
+
+      .social-proof {
+         background-color: #f0fdf4;
+         /* green-50 */
+         color: #166534;
+         /* green-800 */
+         border-left: 4px solid #22c55e;
+         /* green-500 */
+         padding: 1rem;
+         margin-bottom: 2rem;
+         border-radius: 0.375rem;
+         font-weight: 500;
+      }
+
+      .loader {
+         border: 4px solid #f3f3f3;
+         /* Light grey */
+         border-top: 4px solid var(--gold-accent);
+         /* Gold */
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+         0% {
+            transform: rotate(0deg);
+         }
+
+         100% {
+            transform: rotate(360deg);
+         }
+      }
+
+      .sub-group {
+         animation: fadeIn 0.5s ease-in-out;
+         margin-top: 1.5rem;
+         padding-top: 1.5rem;
+         border-top: 1px solid #e5e7eb;
+      }
+
+      /* --- Demo Chat Styles --- */
+      .demo-chat-wrapper {
+         background: linear-gradient(135deg, #1a2a44 0%, #2d3748 100%);
+      }
+
+      .chat-container {
+         width: 100%;
+         max-width: 450px;
+         background: white;
+         border-radius: 12px;
+         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+         overflow: hidden;
+         display: flex;
+         flex-direction: column;
+      }
+
+      .chat-header {
+         background: linear-gradient(135deg, #1a2a44 0%, #2d3748 100%);
+         color: white;
+         padding: 20px;
+         text-align: center;
+         flex-shrink: 0;
+      }
+
+      .chat-header h3 {
+         margin: 0;
+         font-size: 1.2em;
+         font-weight: 600;
+      }
+
+      .chat-header p {
+         margin: 5px 0 0;
+         opacity: 0.9;
+         font-size: 0.9em;
+      }
+
+      .chat-messages {
+         height: 500px;
+         overflow-y: auto;
+         padding: 20px;
+         background: #f8f9fa;
+         flex-grow: 1;
+      }
+
+      .message {
+         margin-bottom: 15px;
+         opacity: 0;
+         animation: fadeIn 0.5s ease-in forwards;
+      }
+
+      .bot-message {
+         display: flex;
+         align-items: flex-start;
+         gap: 10px;
+      }
+
+      .bot-avatar {
+         width: 35px;
+         height: 35px;
+         background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+         border-radius: 50%;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: white;
+         font-weight: bold;
+         font-size: 14px;
+         flex-shrink: 0;
+      }
+
+      .bot-text {
+         background: white;
+         padding: 12px 16px;
+         border-radius: 18px;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+         max-width: 85%;
+         line-height: 1.4;
+      }
+
+      .user-message {
+         display: flex;
+         justify-content: flex-end;
+      }
+
+      .user-text {
+         background: linear-gradient(135deg, #1a2a44 0%, #2d3748 100%);
+         color: white;
+         padding: 12px 16px;
+         border-radius: 18px;
+         max-width: 85%;
+         line-height: 1.4;
+      }
+
+      .options {
+         display: flex;
+         flex-direction: column;
+         gap: 8px;
+         margin-top: 12px;
+      }
+
+      .option-btn {
+         background: white;
+         border: 2px solid #e2e8f0;
+         padding: 12px 16px;
+         border-radius: 8px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         text-align: left;
+         font-size: 14px;
+      }
+
+      .option-btn:hover {
+         border-color: #d4af37;
+         background: #fefcf0;
+         transform: translateY(-1px);
+      }
+
+      .typing-indicator {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         margin-bottom: 15px;
+      }
+
+      .typing-dots {
+         display: flex;
+         gap: 4px;
+         background: white;
+         padding: 12px 16px;
+         border-radius: 18px;
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .dot {
+         width: 8px;
+         height: 8px;
+         background: #cbd5e0;
+         border-radius: 50%;
+         animation: bounce 1.4s infinite ease-in-out;
+      }
+
+      .dot:nth-child(1) {
+         animation-delay: -0.32s;
+      }
+
+      .dot:nth-child(2) {
+         animation-delay: -0.16s;
+      }
+
+      @keyframes bounce {
+
+         0%,
+         80%,
+         100% {
+            transform: scale(0);
+         }
+
+         40% {
+            transform: scale(1);
+         }
+      }
+
+      .highlight {
+         background: linear-gradient(120deg, #d4af37 0%, #f4d03f 100%);
+         background-clip: text;
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         font-weight: 600;
+      }
+
+      .demo-note {
+         background: #fff3cd;
+         border: 1px solid #ffeaa7;
+         border-radius: 8px;
+         padding: 15px;
+         margin: 15px 20px 0;
+         font-size: 0.85em;
+         color: #856404;
+         flex-shrink: 0;
+      }
+
+      .demo-note strong {
+         color: #1a2a44;
+      }
+
+      .payment-section {
+         background: #f8f9ff;
+         border: 2px solid #e6f3ff;
+         border-radius: 8px;
+         padding: 15px;
+         margin-top: 12px;
+      }
+
+      .payment-amount {
+         font-size: 1.2em;
+         font-weight: bold;
+         color: #1a2a44;
+         margin-bottom: 10px;
+      }
+
+      .stripe-btn {
+         background: linear-gradient(135deg, #635bff 0%, #5469d4 100%);
+         color: white;
+         border: none;
+         padding: 12px 20px;
+         border-radius: 6px;
+         cursor: pointer;
+         font-weight: 600;
+         width: 100%;
+         transition: transform 0.2s ease;
+      }
+
+      .stripe-btn:hover {
+         transform: translateY(-1px);
+      }
    </style>
 </head>
 
 <body>
 
    <div class="flex flex-col md:flex-row h-screen">
-      <!-- Left: Sales Page -->
-      <div class="w-full md:w-1/2 overflow-auto border-r border-gray-300 bg-white p-8 md:p-12 relative">
-         <div class="max-w-xl mx-auto">
-            <h2 class="text-lg font-bold tracking-wider" style="color: var(--navy-dark);">ConciergeNP Chatbots</h2>
-            <h1 class="text-4xl lg:text-5xl font-bold my-6 tracking-tight" style="color: var(--navy-dark);">Upgrade Your Website with a Custom Professional Chatbot.
-               <span class="text-2xl lg:text-3xl font-normal text-gray-500 block mt-2">Made for professionals.</span>
-            </h1>
-            <p class="text-xl text-gray-600">Boost leads. Qualify prospects. Save time.</p>
+      <!-- Left Panel -->
+      <div id="left-panel" class="w-full md:w-1/2 overflow-auto border-r border-gray-300 bg-white p-8 md:p-12">
+         <!-- Original Sales Page Content -->
+         <div id="sales-content">
+            <div class="max-w-xl mx-auto">
+               <h2 class="text-lg font-bold tracking-wider" style="color: var(--navy-dark);">Concierge Legal Chatbots</h2>
+               <h1 class="text-4xl lg:text-5xl font-bold my-6 tracking-tight" style="color: var(--navy-dark);">Upgrade Your Law Firm's Website with a Custom AI Chatbot.
+                  <span class="text-2xl lg:text-3xl font-normal text-gray-500 block mt-2">Made for attorneys.</span>
+               </h1>
+               <p class="text-xl text-gray-600">Boost leads. Qualify prospects. Save time.</p>
 
-            <div class="my-12">
-               <button class="w-full text-white font-bold py-4 px-6 transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:-translate-y-1" style="background-color: var(--gold-accent);" onclick="openChat()">Try our Custom Chatbot for professionals</button>
-            </div>
+               <div class="my-8">
+                  <button id="show-demo-btn" class="w-full text-white font-bold py-4 px-6 transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 rounded-md" style="background-color: var(--navy-dark);">Try the Demo</button>
+               </div>
 
-            <h3 class="text-2xl font-bold mt-12 mb-6" style="color: var(--navy-dark);">Trusted by professionals, our AI-powered virtual assistant turns visitors into clients — 24/7.</h3>
+               <h3 class="text-2xl font-bold mt-12 mb-6" style="color: var(--navy-dark);">Trusted by law firms, our AI-powered virtual assistant turns visitors into clients — 24/7.</h3>
 
-            <div class="space-y-6 text-gray-700">
-               <div class="flex items-start gap-4">
-                  <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                     </svg></div>
-                  <div>
-                     <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Qualify Leads Automatically</h4>
-                     <p>Save hours screening low-value prospects.</p>
+               <div class="space-y-6 text-gray-700">
+                  <div class="flex items-start gap-4">
+                     <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg></div>
+                     <div>
+                        <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Qualify Leads Automatically</h4>
+                        <p>Save hours screening low-value prospects.</p>
+                     </div>
                   </div>
-               </div>
-               <div class="flex items-start gap-4">
-                  <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                     </svg></div>
-                  <div>
-                     <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Fully Customizable for Your Firm</h4>
-                     <p>Practice areas, tone, intake flow — everything tailored to you.</p>
-                  </div>
-               </div>
-               <div class="flex items-start gap-4">
-                  <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                     </svg></div>
-                  <div>
-                     <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Increase Conversions</h4>
-                     <p>Encourage consultations, bookings, or calls.</p>
-                  </div>
-               </div>
-               <div class="flex items-start gap-4">
-                  <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                     </svg></div>
-                  <div>
-                     <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Secure & Compliant</h4>
-                     <p>HIPAA-ready, optional disclaimers, payment collection.</p>
+                  <div class="flex items-start gap-4">
+                     <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg></div>
+                     <div>
+                        <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Increase Conversions</h4>
+                        <p>Encourage consultations, bookings, or calls.</p>
+                     </div>
                   </div>
                </div>
             </div>
          </div>
-         <!-- Chatbot UI (Now positioned relative to this left panel) -->
-         <div id="chatContainer" class="absolute bottom-5 left-5 z-50">
-            <button id="chatButton" onclick="toggleChat()" class="w-16 h-16 rounded-full shadow-xl hover:scale-110 transition-transform flex items-center justify-center" style="background-color: var(--navy-dark);" aria-label="Toggle chat widget"><svg id="chatOpenIcon" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-               </svg><svg id="chatCloseIcon" class="h-8 w-8 text-white hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-               </svg></button>
-            <div id="chatWindow" class="hidden absolute bottom-20 left-0 w-[90vw] max-w-md h-[70vh] max-h-[600px] bg-white shadow-2xl flex flex-col overflow-hidden border border-gray-300 rounded-lg">
-               <div class="p-4 flex justify-between items-center" style="background-color: var(--navy-dark);">
-                  <h3 class="font-bold text-lg text-white tracking-wider">Confidential Intake Portal</h3><button onclick="toggleChat()" class="text-3xl text-white hover:text-gray-300 transition-colors" aria-label="Close chat widget">×</button>
+
+         <!-- Demo Chatbot UI (Initially Hidden) -->
+         <div id="demo-chat-container" class="hidden h-full w-full flex items-center justify-center">
+            <div class="chat-container">
+               <div class="chat-header">
+                  <h3>Smith & Associates Law</h3>
+                  <p>Free Legal Consultation Assistant</p>
                </div>
-               <div id="chatMessages" class="flex-1 p-5 overflow-y-auto chat-messages flex flex-col space-y-4" style="background-color: var(--light-gray);"></div>
+
+               <div class="demo-note">
+                  <strong>Demo Features:</strong> ✓ Custom questions ✓ Deposit collection ✓ Lead qualification ✓ Appointment scheduling
+               </div>
+
+               <div class="chat-messages" id="messages">
+                  <!-- Messages will be dynamically inserted here -->
+               </div>
             </div>
          </div>
       </div>
@@ -258,28 +506,47 @@
       <!-- Right: Bot Builder Wizard -->
       <div class="w-full md:w-1/2 bg-white p-8 overflow-auto" id="builder-panel">
          <div class="max-w-2xl mx-auto">
-            <div id="botBuilderWizard">
-               <h2 class="text-3xl font-bold mb-2" style="color: var(--navy-dark);">Build Your Custom Professional Chatbot</h2>
-               <p class="text-gray-600 mb-6">Complete this questionnaire to receive a detailed proposal and quote.</p>
+            <div id="botBuilderWrapper">
+               <div id="botBuilderQuestionnaire">
+                  <h2 class="text-3xl font-bold mb-2" style="color: var(--navy-dark);">Build Your Custom Law Firm Chatbot</h2>
+                  <p class="text-gray-600 mb-4">Complete this questionnaire to receive a detailed proposal and quote.</p>
 
-               <form id="builderForm" class="space-y-6">
-                  <!-- Group 1: Contact Info -->
-                  <div class="question-group">
-                     <h3>Contact & Service Area</h3>
-                     <div class="space-y-4">
-                        <div><label class="question-label" for="q1_full_name">1. Full Name</label><input type="text" id="q1_full_name" name="full_name" class="builder-input" required></div>
-                        <div><label class="question-label" for="q2_email">2. Email</label><input type="email" id="q2_email" name="email" class="builder-input" required></div>
-                        <div><label class="question-label" for="q3_phone">3. Phone Number</label><input type="tel" id="q3_phone" name="phone" class="builder-input" required></div>
-                        <div>
-                           <label class="question-label" for="q4_zip_code">4. What is your primary service zip code?</label>
-                           <input type="text" id="q4_zip_code" name="zip_code" class="builder-input" placeholder="e.g., 90210">
-                        </div>
-                        <div>
-                           <label class="question-label">...and what is your service area?</label>
-                           <div class="space-y-2">
-                              <label class="radio-option"><input type="radio" name="service_area_type" value="radius_10"><span class="radio-label">10 mile radius</span></label>
-                              <label class="radio-option"><input type="radio" name="service_area_type" value="radius_25"><span class="radio-label">25 mile radius</span></label>
-                              <label class="radio-option"><input type="radio" name="service_area_type" value="radius_50"><span class="radio-label">50 mile radius</span></label>
-                              <label class="radio-option"><input type="radio" name="service_area_type" value="counties"><span class="radio-label">I'll list specific counties below</span></label>
+                  <!-- Progress Bar -->
+                  <div id="progress-container" class="mb-8">
+                     <div class="relative pt-1">
+                        <div class="flex mb-2 items-center justify-between">
+                           <div>
+                              <span id="progress-text" class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full" style="color: var(--navy-dark); background-color: var(--light-gray);">
+                                 Step 1 of 6
+                              </span>
                            </div>
-                           <textarea name="service_area_counties" class="builder-textarea mt-2 hidden" placeholder="e.g., Los Angeles County, Orange County">
+                        </div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded" style="background-color: var(--light-gray);">
+                           <div id="progress-bar" style="width: 0%; background-color: var(--gold-accent);" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500"></div>
+                        </div>
+                     </div>
+                  </div>
+
+
+                  <form id="builderForm" method="POST" novalidate>
+
+                     <!-- Stage 1: Let's Get Started -->
+                     <div id="stage-1" class="form-stage active">
+                        <div class="question-group">
+                           <h3>Stage 1: Contact & Service Area</h3>
+                           <div class="space-y-4">
+                              <div><label class="question-label" for="firm_name">1. What is the Name of your Law Firm?</label><input type="text" id="firm_name" name="firm_name" class="builder-input" required></div>
+                              <div><label class="question-label" for="full_name">2. Full Name</label><input type="text" id="full_name" name="full_name" class="builder-input" required></div>
+                              <div><label class="question-label" for="email">3. Email</label><input type="email" id="email" name="email" class="builder-input" required></div>
+                              <div><label class="question-label" for="phone">4. Phone Number</label><input type="tel" id="phone" name="phone" class="builder-input" required></div>
+                              <div><label class="question-label" for="zip_code">5. What is your primary service zip code?</label><input type="text" id="zip_code" name="zip_code" class="builder-input" placeholder="e.g., 90210"></div>
+                              <div>
+                                 <label class="question-label">6. ...and what is your service area?</label>
+                                 <div class="space-y-2">
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_10"><span class="radio-label">10 mile radius</span></label>
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_25"><span class="radio-label">25 mile radius</span></label>
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_50"><span class="radio-label">50 mile radius</span></label>
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="counties"><span class="radio-label">I'll list specific counties below</span></label>
+                                 </div>
+                                 <div id="counties-group" class="hidden sub-group">
+                                    <textarea name="service_area_counties" class="builder-textarea" placeholder="e.g., Los Angeles County, Orange County">

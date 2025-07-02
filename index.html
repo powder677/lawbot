@@ -228,11 +228,16 @@
       /* --- Demo Chat Styles --- */
       .demo-chat-wrapper {
          background: linear-gradient(135deg, #1a2a44 0%, #2d3748 100%);
+         display: flex;
+         align-items: center;
+         justify-content: center;
       }
 
       .chat-container {
          width: 100%;
          max-width: 450px;
+         height: 90%;
+         max-height: 700px;
          background: white;
          border-radius: 12px;
          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -262,7 +267,6 @@
       }
 
       .chat-messages {
-         height: 500px;
          overflow-y: auto;
          padding: 20px;
          background: #f8f9fa;
@@ -447,59 +451,62 @@
 
    <div class="flex flex-col md:flex-row h-screen">
       <!-- Left Panel -->
-      <div id="left-panel" class="w-full md:w-1/2 overflow-auto border-r border-gray-300 bg-white p-8 md:p-12">
-         <!-- Original Sales Page Content -->
-         <div id="sales-content">
-            <div class="max-w-xl mx-auto">
-               <h2 class="text-lg font-bold tracking-wider" style="color: var(--navy-dark);">Concierge Legal Chatbots</h2>
-               <h1 class="text-4xl lg:text-5xl font-bold my-6 tracking-tight" style="color: var(--navy-dark);">Upgrade Your Law Firm's Website with a Custom AI Chatbot.
-                  <span class="text-2xl lg:text-3xl font-normal text-gray-500 block mt-2">Made for attorneys.</span>
-               </h1>
-               <p class="text-xl text-gray-600">Boost leads. Qualify prospects. Save time.</p>
+      <div id="left-panel" class="w-full md:w-1/2 border-r border-gray-300 bg-white p-8 md:p-12 flex flex-col">
+         <!-- This container will hold either sales content or the demo -->
+         <div id="left-panel-content-wrapper" class="flex-grow flex flex-col">
+            <!-- Original Sales Page Content -->
+            <div id="sales-content" class="flex-grow flex flex-col justify-center">
+               <div class="max-w-xl mx-auto">
+                  <h2 class="text-lg font-bold tracking-wider" style="color: var(--navy-dark);">Concierge Legal Chatbots</h2>
+                  <h1 class="text-4xl lg:text-5xl font-bold my-6 tracking-tight" style="color: var(--navy-dark);">Upgrade Your Law Firm's Website with a Custom AI Chatbot.
+                     <span class="text-2xl lg:text-3xl font-normal text-gray-500 block mt-2">Made for attorneys.</span>
+                  </h1>
+                  <p class="text-xl text-gray-600">Boost leads. Qualify prospects. Save time.</p>
 
-               <div class="my-8">
-                  <button id="show-demo-btn" class="w-full text-white font-bold py-4 px-6 transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 rounded-md" style="background-color: var(--navy-dark);">Try the Demo</button>
-               </div>
-
-               <h3 class="text-2xl font-bold mt-12 mb-6" style="color: var(--navy-dark);">Trusted by law firms, our AI-powered virtual assistant turns visitors into clients — 24/7.</h3>
-
-               <div class="space-y-6 text-gray-700">
-                  <div class="flex items-start gap-4">
-                     <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg></div>
-                     <div>
-                        <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Qualify Leads Automatically</h4>
-                        <p>Save hours screening low-value prospects.</p>
-                     </div>
+                  <div class="my-8">
+                     <button id="show-demo-btn" class="w-full text-white font-bold py-4 px-6 transition-all duration-300 text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 rounded-md" style="background-color: var(--navy-dark);">Try the Demo</button>
                   </div>
-                  <div class="flex items-start gap-4">
-                     <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg></div>
-                     <div>
-                        <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Increase Conversions</h4>
-                        <p>Encourage consultations, bookings, or calls.</p>
+
+                  <h3 class="text-2xl font-bold mt-12 mb-6" style="color: var(--navy-dark);">Trusted by law firms, our AI-powered virtual assistant turns visitors into clients — 24/7.</h3>
+
+                  <div class="space-y-6 text-gray-700">
+                     <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                           </svg></div>
+                        <div>
+                           <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Qualify Leads Automatically</h4>
+                           <p>Save hours screening low-value prospects.</p>
+                        </div>
+                     </div>
+                     <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" style="background-color: var(--light-gray);"><svg class="w-5 h-5" style="color: var(--navy-dark);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                           </svg></div>
+                        <div>
+                           <h4 class="font-bold text-lg" style="color: var(--navy-dark);">Increase Conversions</h4>
+                           <p>Encourage consultations, bookings, or calls.</p>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
-         </div>
 
-         <!-- Demo Chatbot UI (Initially Hidden) -->
-         <div id="demo-chat-container" class="hidden h-full w-full flex items-center justify-center">
-            <div class="chat-container">
-               <div class="chat-header">
-                  <h3>Smith & Associates Law</h3>
-                  <p>Free Legal Consultation Assistant</p>
-               </div>
+            <!-- Demo Chatbot UI (Initially Hidden) -->
+            <div id="demo-chat-container" class="hidden demo-chat-wrapper flex-grow">
+               <div class="chat-container">
+                  <div class="chat-header">
+                     <h3>Smith & Associates Law</h3>
+                     <p>Free Legal Consultation Assistant</p>
+                  </div>
 
-               <div class="demo-note">
-                  <strong>Demo Features:</strong> ✓ Custom questions ✓ Deposit collection ✓ Lead qualification ✓ Appointment scheduling
-               </div>
+                  <div class="demo-note">
+                     <strong>Demo Features:</strong> ✓ Custom questions ✓ Deposit collection ✓ Lead qualification ✓ Appointment scheduling
+                  </div>
 
-               <div class="chat-messages" id="messages">
-                  <!-- Messages will be dynamically inserted here -->
+                  <div class="chat-messages" id="messages">
+                     <!-- Messages will be dynamically inserted here -->
+                  </div>
                </div>
             </div>
          </div>
@@ -507,50 +514,49 @@
 
       <!-- Right: Bot Builder Wizard -->
       <div class="w-full md:w-1/2 bg-white flex flex-col" id="builder-panel">
-         <div class="max-w-2xl mx-auto w-full flex flex-col h-full relative p-8">
-            <div id="botBuilderWrapper" class="flex flex-col h-full">
-               <!-- This container now manages the form layout -->
-               <div id="botBuilderQuestionnaire" class="flex flex-col h-full">
-                  <!-- Header part, this is NOT scrollable -->
-                  <div class="flex-shrink-0">
-                     <h2 class="text-3xl font-bold mb-2" style="color: var(--navy-dark);">Build Your Custom Law Firm Chatbot</h2>
-                     <p class="text-gray-600 mb-4">Complete this questionnaire to receive a detailed proposal and quote.</p>
-                     <div id="progress-container" class="mb-8">
-                        <div class="relative pt-1">
-                           <div class="flex mb-2 items-center justify-between">
-                              <div>
-                                 <span id="progress-text" class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full" style="color: var(--navy-dark); background-color: var(--light-gray);">
-                                    Step 1 of 6
-                                 </span>
-                              </div>
+         <div id="botBuilderWrapper" class="max-w-2xl mx-auto w-full flex flex-col h-full">
+            <!-- This container now manages the form layout -->
+            <div id="botBuilderQuestionnaire" class="flex flex-col h-full">
+               <!-- Header part, this is NOT scrollable -->
+               <div class="flex-shrink-0 p-8 pb-0">
+                  <h2 class="text-3xl font-bold mb-2" style="color: var(--navy-dark);">Build Your Custom Law Firm Chatbot</h2>
+                  <p class="text-gray-600 mb-4">Complete this questionnaire to receive a detailed proposal and quote.</p>
+                  <div id="progress-container" class="mb-8">
+                     <div class="relative pt-1">
+                        <div class="flex mb-2 items-center justify-between">
+                           <div>
+                              <span id="progress-text" class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full" style="color: var(--navy-dark); background-color: var(--light-gray);">
+                                 Step 1 of 6
+                              </span>
                            </div>
-                           <div class="overflow-hidden h-2 mb-4 text-xs flex rounded" style="background-color: var(--light-gray);">
-                              <div id="progress-bar" style="width: 0%; background-color: var(--gold-accent);" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500"></div>
-                           </div>
+                        </div>
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded" style="background-color: var(--light-gray);">
+                           <div id="progress-bar" style="width: 0%; background-color: var(--gold-accent);" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center transition-all duration-500"></div>
                         </div>
                      </div>
                   </div>
+               </div>
 
-                  <!-- This div will contain all stages and will be the SCROLLABLE part -->
-                  <div id="form-content-area" class="flex-grow overflow-y-auto" style="padding-bottom: 100px;">
-                     <form id="builderForm" method="POST" novalidate>
-                        <!-- Stage 1: Let's Get Started -->
-                        <div id="stage-1" class="form-stage active">
-                           <div class="question-group">
-                              <h3>Stage 1: Contact & Service Area</h3>
-                              <div class="space-y-4">
-                                 <div><label class="question-label" for="firm_name">1. What is the Name of your Law Firm?</label><input type="text" id="firm_name" name="firm_name" class="builder-input" required></div>
-                                 <div><label class="question-label" for="full_name">2. Full Name</label><input type="text" id="full_name" name="full_name" class="builder-input" required></div>
-                                 <div><label class="question-label" for="email">3. Email</label><input type="email" id="email" name="email" class="builder-input" required></div>
-                                 <div><label class="question-label" for="phone">4. Phone Number</label><input type="tel" id="phone" name="phone" class="builder-input" required></div>
-                                 <div><label class="question-label" for="zip_code">5. What is your primary service zip code?</label><input type="text" id="zip_code" name="zip_code" class="builder-input" placeholder="e.g., 90210"></div>
-                                 <div>
-                                    <label class="question-label">6. ...and what is your service area?</label>
-                                    <div class="space-y-2">
-                                       <label class="radio-option"><input type="radio" name="service_area_type" value="radius_10"><span class="radio-label">10 mile radius</span></label>
-                                       <label class="radio-option"><input type="radio" name="service_area_type" value="radius_25"><span class="radio-label">25 mile radius</span></label>
-                                       <label class="radio-option"><input type="radio" name="service_area_type" value="radius_50"><span class="radio-label">50 mile radius</span></label>
-                                       <label class="radio-option"><input type="radio" name="service_area_type" value="counties"><span class="radio-label">I'll list specific counties below</span></label>
-                                    </div>
-                                    <div id="counties-group" class="hidden sub-group">
-                                       <textarea name="service_area_counties" class="builder-textarea" placeholder="e.g., Los Angeles County, Orange County">
+               <!-- This div will contain all stages and will be the SCROLLABLE part -->
+               <div id="form-content-area" class="flex-grow overflow-y-auto px-8">
+                  <form id="builderForm" method="POST" novalidate>
+                     <!-- Stage 1: Let's Get Started -->
+                     <div id="stage-1" class="form-stage active">
+                        <div class="question-group">
+                           <h3>Stage 1: Contact & Service Area</h3>
+                           <div class="space-y-4">
+                              <div><label class="question-label" for="firm_name">1. What is the Name of your Law Firm?</label><input type="text" id="firm_name" name="firm_name" class="builder-input" required></div>
+                              <div><label class="question-label" for="full_name">2. Full Name</label><input type="text" id="full_name" name="full_name" class="builder-input" required></div>
+                              <div><label class="question-label" for="email">3. Email</label><input type="email" id="email" name="email" class="builder-input" required></div>
+                              <div><label class="question-label" for="phone">4. Phone Number</label><input type="tel" id="phone" name="phone" class="builder-input" required></div>
+                              <div><label class="question-label" for="zip_code">5. What is your primary service zip code?</label><input type="text" id="zip_code" name="zip_code" class="builder-input" placeholder="e.g., 90210"></div>
+                              <div>
+                                 <label class="question-label">6. ...and what is your service area?</label>
+                                 <div class="space-y-2">
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_10"><span class="radio-label">10 mile radius</span></label>
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_25"><span class="radio-label">25 mile radius</span></label>
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="radius_50"><span class="radio-label">50 mile radius</span></label>
+                                    <label class="radio-option"><input type="radio" name="service_area_type" value="counties"><span class="radio-label">I'll list specific counties below</span></label>
+                                 </div>
+                                 <div id="counties-group" class="hidden sub-group">
+                                    <textarea name="service_area_counties" class="builder-textarea" placeholder="e.g., Los Angeles County, Orange County">

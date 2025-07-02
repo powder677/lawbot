@@ -345,120 +345,6 @@
          background: #fefcf0;
          transform: translateY(-1px);
       }
-
-      .typing-indicator {
-         display: flex;
-         align-items: center;
-         gap: 10px;
-         margin-bottom: 15px;
-      }
-
-      .typing-dots {
-         display: flex;
-         gap: 4px;
-         background: white;
-         padding: 12px 16px;
-         border-radius: 18px;
-         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      .dot {
-         width: 8px;
-         height: 8px;
-         background: #cbd5e0;
-         border-radius: 50%;
-         animation: bounce 1.4s infinite ease-in-out;
-      }
-
-      .dot:nth-child(1) {
-         animation-delay: -0.32s;
-      }
-
-      .dot:nth-child(2) {
-         animation-delay: -0.16s;
-      }
-
-      @keyframes bounce {
-
-         0%,
-         80%,
-         100% {
-            transform: scale(0);
-         }
-
-         40% {
-            transform: scale(1);
-         }
-      }
-
-      .highlight {
-         background: linear-gradient(120deg, #d4af37 0%, #f4d03f 100%);
-         background-clip: text;
-         -webkit-background-clip: text;
-         -webkit-text-fill-color: transparent;
-         font-weight: 600;
-      }
-
-      .demo-note {
-         background: #fff3cd;
-         border: 1px solid #ffeaa7;
-         border-radius: 8px;
-         padding: 15px;
-         margin: 15px 20px 0;
-         font-size: 0.85em;
-         color: #856404;
-         flex-shrink: 0;
-      }
-
-      .demo-note strong {
-         color: #1a2a44;
-      }
-
-      .payment-section {
-         background: #f8f9ff;
-         border: 2px solid #e6f3ff;
-         border-radius: 8px;
-         padding: 15px;
-         margin-top: 12px;
-      }
-
-      .payment-amount {
-         font-size: 1.2em;
-         font-weight: bold;
-         color: #1a2a44;
-         margin-bottom: 10px;
-      }
-
-      .stripe-btn {
-         background: linear-gradient(135deg, #635bff 0%, #5469d4 100%);
-         color: white;
-         border: none;
-         padding: 12px 20px;
-         border-radius: 6px;
-         cursor: pointer;
-         font-weight: 600;
-         width: 100%;
-         transition: transform 0.2s ease;
-      }
-
-      .stripe-btn:hover {
-         transform: translateY(-1px);
-      }
-
-      /* Fix the form content area height calculation */
-      #form-content-area {
-         flex-grow: 1;
-         overflow-y: auto;
-         padding-right: 1rem;
-         /* Add some padding for the scrollbar */
-      }
-
-      /* Ensure the form itself doesn't try to scroll */
-      #builderForm {
-         height: 100%;
-         display: flex;
-         flex-direction: column;
-      }
    </style>
 </head>
 
@@ -552,8 +438,7 @@
                   </div>
                </div>
 
-
-               <form id="builderForm" method="POST" novalidate class="flex flex-col flex-grow h-full overflow-hidden">
+               <form id="builderForm" method="POST" novalidate class="flex flex-col flex-grow min-h-0">
                   <!-- This div will contain all stages and will be the SCROLLABLE part -->
                   <div id="form-content-area" class="flex-grow overflow-y-auto px-8">
                      <!-- Stage 1: Let's Get Started -->
